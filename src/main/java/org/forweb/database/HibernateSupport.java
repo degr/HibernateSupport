@@ -24,16 +24,23 @@ public class HibernateSupport
     public static String packagesToScan;
     public static boolean AUTOCOMMIT = true;
 
+    public static Properties hibernateProperties = new Properties();
+
     public static void init(String host, String user, String password, String database, String packagesToScan) {
         init(host, user, password, database, packagesToScan, "com.mysql.jdbc.Driver");
     }
 
     public static void init(String host, String user, String password, String database, String packagesToScan, String driverClassName) {
+        init(host, user, password, database, packagesToScan, driverClassName, "org.forweb.database.MySqlDialect");
+    }
+
+    public static void init(String host, String user, String password, String database, String packagesToScan, String driverClassName, String dialectClassName) {
         HibernateSupport.url = "jdbc:mysql://" + host + "/" + database;
         HibernateSupport.username = user;
         HibernateSupport.password = password;
         HibernateSupport.driverClassName = driverClassName;
         HibernateSupport.packagesToScan = packagesToScan;
+        HibernateSupport.dialectClassName = dialectClassName;
     }
 
     public static void setDebug(Boolean debug) {
@@ -49,7 +56,7 @@ public class HibernateSupport
     private static String password;
 
     public static String hibernateConnectionCharset = "UTF-8";
-    public static String hibernateDialect = "org.forweb.database.MySqlDialect";
+    public static String dialectClassName = "org.forweb.database.MySqlDialect";
     public static String hibernateEjbNamingStrategy = "org.hibernate.cfg.ImprovedNamingStrategy";
     public static String hibernateHbm2ddlAuto = "validate";
     public static Boolean hibernateGenerateStatistics = false;
@@ -61,42 +68,34 @@ public class HibernateSupport
 
     @Bean(name = "hibernateProperties")
     public Properties hibernateProperties() {
-        Properties properties = new Properties();
+        hibernateProperties.put("hibernate.connection.url", url);
+        hibernateProperties.put("hibernate.connection.username", username);
+        hibernateProperties.put("hibernate.connection.password", password);
+        hibernateProperties.put("hibernate.connection.driver_class", driverClassName);
+        hibernateProperties.put("hibernate.connection.pool_size", 20);
 
-        properties.put("hibernate.connection.url", url);
-        properties.put("hibernate.connection.username", username);
-        properties.put("hibernate.connection.password", password);
-        properties.put("hibernate.connection.driver_class", driverClassName);
-        properties.put("hibernate.connection.pool_size", 20);
-        //properties.put("shutdown", true);
-        properties.put("hsqldb.write_delay_millis", 0);
-        properties.put("hibernate.c3p0.idle_test_period", 300);
-        properties.put("hibernate.c3p0.timeout", 120);
+        hibernateProperties.put("hsqldb.write_delay_millis", 0);
+        hibernateProperties.put("hibernate.c3p0.idle_test_period", 300);
+        hibernateProperties.put("hibernate.c3p0.timeout", 120);
 
+        hibernateProperties.put("hibernate.connection.charSet", hibernateConnectionCharset);
+        hibernateProperties.put("hibernate.connection.autocommit", AUTOCOMMIT);
 
-        properties.put("hibernate.connection.charSet", hibernateConnectionCharset);
-        properties.put("hibernate.connection.autocommit", AUTOCOMMIT);
+        hibernateProperties.put("hibernate.dialect", dialectClassName);
+        hibernateProperties.put("hibernate.ejb.naming_strategy", hibernateEjbNamingStrategy);
+        hibernateProperties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
+        hibernateProperties.put("hibernate.generate_statistics", hibernateGenerateStatistics);
 
-        properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.ejb.naming_strategy", hibernateEjbNamingStrategy);
-        properties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
-        properties.put("hibernate.generate_statistics", hibernateGenerateStatistics);
+        hibernateProperties.put("hibernate.show_sql", hibernateShowSql);
+        hibernateProperties.put("format_sql", hibernateFormatSql);
+        hibernateProperties.put("hibernate.use_sql_comments", hibernateUseSqlComments);
+        hibernateProperties.put("use_sql_comments", hibernateUseSqlComments);
 
-        //properties.put("hibernate.cache.region.factory_class", org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory);
-        //properties.put("#hibernate.cache.use_second_level_cache", "true");
-        //properties.put("#hibernate.cache.use_query_cache", "true");
-
-        properties.put("hibernate.show_sql", hibernateShowSql);
-        properties.put("format_sql", hibernateFormatSql);
-        properties.put("hibernate.use_sql_comments", hibernateUseSqlComments);
-        properties.put("use_sql_comments", hibernateUseSqlComments);
-
-        properties.put("hibernate.jdbc.batch_size", hibernateJdbcBatchSize);
-        properties.put("hibernate.order_inserts", true);
-        properties.put("hibernate.order_updates", true);
-        properties.put("hibernate.cache.region_prefix", hibernateCacheRegionPrefix);
-        // properties.put("hibernate.current_session_context_class", "thread");
-        return properties;
+        hibernateProperties.put("hibernate.jdbc.batch_size", hibernateJdbcBatchSize);
+        hibernateProperties.put("hibernate.order_inserts", true);
+        hibernateProperties.put("hibernate.order_updates", true);
+        hibernateProperties.put("hibernate.cache.region_prefix", hibernateCacheRegionPrefix);
+        return hibernateProperties;
     }
 
 

@@ -6,10 +6,6 @@ import org.hibernate.type.StandardBasicTypes;
 
 import java.sql.Types;
 
-
-/**
- * Created by rsmirnou on 10/6/2015. 22
- */
 public class MySqlDialect extends MySQLDialect {
     public MySqlDialect() {
         super();
