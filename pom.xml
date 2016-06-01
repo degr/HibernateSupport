@@ -11,33 +11,17 @@
 
     <properties>
         <java.version>8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <apache.commons.version>3.4</apache.commons.version>
-        <apache.collections.version>4.0</apache.collections.version>
-        <apache.httpcomponents.version>4.3.6</apache.httpcomponents.version>
-        <common.discovery.version>0.5</common.discovery.version>
-        <common.fileupload.version>1.2.2</common.fileupload.version>
-        <commons.io.version>2.4</commons.io.version>
-        <common.logging.version>1.2</common.logging.version>
-        <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
-        <javax.servlet.version>1.1.2</javax.servlet.version>
-        <javax.mail.version>1.4</javax.mail.version>
-        <javax.validation.version>1.0.0.GA</javax.validation.version>
-        <javax.ws.rs.api.version>2.0.1</javax.ws.rs.api.version>
-        <jaxrpc.api.version>1.1</jaxrpc.api.version>
-        <jaxws.rt.version>2.1.4</jaxws.rt.version>
-        <junit.version>4.12</junit.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
         <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
         <mysql.driver.version>5.1.36</mysql.driver.version>
 
-        <slfj.version>1.7.5</slfj.version>
         <spring.data.version>1.9.0.RELEASE</spring.data.version>
-        <spring.version>4.1.6.RELEASE</spring.version>
-        <spring.securiry.version>3.1.0.RELEASE</spring.securiry.version>
     </properties>
 
     <dependencies>
@@ -86,24 +70,6 @@
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 
