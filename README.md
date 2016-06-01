@@ -4,6 +4,7 @@
 
 Here is sample how start with it:
 
+```java
 public class AppInitializer implements WebApplicationInitializer {
 
 public static final String BASE_PACKAGE = "org.forweb.commandos";
@@ -11,8 +12,7 @@ public static final String BASE_PACKAGE = "org.forweb.commandos";
   public void onStartup(ServletContext container) {
     HibernateSupport.init("localhost", "databaseUser", "databaseUserPassword", "database_name", "org.forweb.entity");
     
-    
-```java
+/////////////////
 package org.forweb.entity;
 
 import org.forweb.database.AbstractEntity;
