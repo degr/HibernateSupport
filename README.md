@@ -26,9 +26,9 @@ public class Map extends AbstractEntity {
     //getters and setters
 }
 /////////////////////////////
-package org.forweb.commandos.dao;
+package org.forweb.dao;
 
-import org.forweb.commandos.entity.Map;
+import org.forweb.entity.Map;
 import org.forweb.database.AbstractDao;
 import org.springframework.stereotype.Repository;
 
@@ -37,6 +37,12 @@ public interface MapDao extends AbstractDao<Map> {
 }
 
 ////////////////////////
+package org.forweb.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class MapService {
