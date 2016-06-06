@@ -3,8 +3,22 @@
 [![](https://jitpack.io/v/degr/HibernateSupport.svg)](https://jitpack.io/#degr/HibernateSupport)
 
 Here is sample how start with it:
-
+```xml
+(pom xml)
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+<dependency>
+    <groupId>com.github.degr</groupId>
+    <artifactId>HibernateSupport</artifactId>
+    <version>c957e13f95</version>
+</dependency>
+```
 ```java
+
 public class AppInitializer implements WebApplicationInitializer {
 
 public static final String BASE_PACKAGE = "org.forweb.yourproject";
