@@ -75,8 +75,17 @@ public class HibernateSupport
         hibernateProperties.put("hibernate.connection.pool_size", 20);
 
         hibernateProperties.put("hsqldb.write_delay_millis", 0);
-        hibernateProperties.put("hibernate.c3p0.idle_test_period", 300);
-        hibernateProperties.put("hibernate.c3p0.timeout", 120);
+        properties.put("hibernate.c3p0.validate", true);
+        properties.put("hibernate.connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
+        properties.put("hibernate.c3p0.min_size", 5);
+        properties.put("hibernate.c3p0.max_size", 20);
+        properties.put("hibernate.c3p0.max_statements", 50);
+        properties.put("hibernate.c3p0.preferredTestQuery", "SELECT 1;");
+        properties.put("hibernate.c3p0.testConnectionOnCheckout", true);
+        properties.put("hibernate.c3p0.idle_test_period", 3000);
+        properties.put("hibernate.c3p0.acquireRetryAttempts", 5);
+        properties.put("hibernate.c3p0.acquireRetryDelay", 200);
+        properties.put("hibernate.c3p0.timeout", 300);
 
         hibernateProperties.put("hibernate.connection.charSet", hibernateConnectionCharset);
         hibernateProperties.put("hibernate.connection.autocommit", AUTOCOMMIT);
