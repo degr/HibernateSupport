@@ -9,6 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -70,6 +71,7 @@ public class HibernateSupport
         pageable.setSizeParameterName(SIZE);
         pageable.setQualifierDelimiter(null);
         pageable.setPrefix(null);
+        pageable.setFallbackPageable(new PageRequest(0, 20));
         return pageable;
     }
 
