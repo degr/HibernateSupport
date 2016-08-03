@@ -24,6 +24,13 @@
         <spring.data.version>1.9.0.RELEASE</spring.data.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <!-- HIBERNATE AND DATABASE START -->
@@ -75,6 +82,12 @@
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.degr</groupId>
+            <artifactId>SpringSupport</artifactId>
+            <version>ffd77781d4</version>
         </dependency>
     </dependencies>
 
