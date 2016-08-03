@@ -8,6 +8,12 @@ import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.SortHandlerMethodArgumentResolver;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -15,12 +21,18 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Properties;
 
 
 @Configuration
 public class HibernateSupport
 {
+    public static final String PAGE = "page";
+    public static final String SIZE = "size";
+    public static final String SORT = "sort";
+
     public static String packagesToScan;
     public static boolean AUTOCOMMIT = true;
 
@@ -43,6 +55,24 @@ public class HibernateSupport
         HibernateSupport.dialectClassName = dialectClassName;
     }
 
+    @Bean(name="sortHandlerMethodArgumentResolver")
+    public SortHandlerMethodArgumentResolver sortHandlerMethodArgumentResolver() {
+        SortHandlerMethodArgumentResolver sortable = new SortHandlerMethodArgumentResolver();
+        sortable.setSortParameter(SORT);
+        return sortable;
+    }
+    @Bean(name="pageableHandlerMethodArgumentResolver")
+    static PageableHandlerMethodArgumentResolver pageableHandlerMethodArgumentResolver(SortHandlerMethodArgumentResolver sortHandlerMethodArgumentResolver) {
+        PageableHandlerMethodArgumentResolver pageable = new PageableHandlerMethodArgumentResolver(sortHandlerMethodArgumentResolver);
+        pageable.setMaxPageSize(100);
+        pageable.setOneIndexedParameters(true);
+        pageable.setPageParameterName(PAGE);
+        pageable.setSizeParameterName(SIZE);
+        pageable.setQualifierDelimiter(null);
+        pageable.setPrefix(null);
+        return pageable;
+    }
+
     public static void setDebug(Boolean debug) {
         hibernateGenerateStatistics = debug;
         hibernateShowSql = debug;
@@ -51,7 +81,7 @@ public class HibernateSupport
     }
 
     private static String driverClassName;
-    private static String url;
+    public static String url;
     private static String username;
     private static String password;
 
