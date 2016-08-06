@@ -86,8 +86,8 @@
 
         <dependency>
             <groupId>com.github.degr</groupId>
-            <artifactId>SpringSupport</artifactId>
-            <version>88731aa8fc</version>
+            <artifactId>springsupport</artifactId>
+            <version>e63533cd64</version>
         </dependency>
     </dependencies>
 
