@@ -27,21 +27,23 @@ public class HibernateSupport {
     public static final String SIZE = "size";
     public static final String SORT = "sort";
 
-    public static String packagesToScan;
+    public static String[] packagesToScan;
     public static boolean AUTOCOMMIT = true;
 
     public static Properties hibernateProperties = new Properties();
 
-    public static void init(String host, String user, String password, String database, String packagesToScan) {
-        init(host, user, password, database, packagesToScan, "com.mysql.jdbc.Driver");
+    public static void init(String host, String user, String password, String database, String ... packagesToScan) {
+        init(host, user, password, database, "com.mysql.jdbc.Driver", packagesToScan);
     }
 
-    public static void init(String host, String user, String password, String database, String packagesToScan, String driverClassName) {
-        init(host, user, password, database, packagesToScan, driverClassName, "org.forweb.database.MySqlDialect");
+    public static void init(String host, String user, String password, String database,  String driverClassName, String ... packagesToScan) {
+        init(host, user, password, database, driverClassName, "org.forweb.database.MySqlDialect", packagesToScan);
     }
-
-    public static void init(String host, String user, String password, String database, String packagesToScan, String driverClassName, String dialectClassName) {
-        HibernateSupport.url = "jdbc:mysql://" + host + "/" + database;
+    public static void init(String host, String user, String password, String database, String driverClassName, String dialectClassName, String ... packagesToScan) {
+        init(host, user, password, database, driverClassName, dialectClassName, "jdbc:mysql://" + host + "/" + database, packagesToScan);
+    }
+    public static void init(String host, String user, String password, String database, String driverClassName, String dialectClassName, String url, String ... packagesToScan) {
+        HibernateSupport.url = url;
         HibernateSupport.username = user;
         HibernateSupport.password = password;
         HibernateSupport.driverClassName = driverClassName;
